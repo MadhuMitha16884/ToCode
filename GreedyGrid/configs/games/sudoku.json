@@ -1,0 +1,19 @@
+{
+  "gameName": "Sudoku",
+  "grid": {
+    "rows": 9,
+    "columns": 9
+  },
+  "rules": {
+    "uniqueRow": true,
+    "uniqueColumn": true,
+    "uniqueBox": true
+  },
+  "winCondition": {
+    "type": "completeGrid"
+  },
+  "scoring": {
+    "timeBonus": true,
+    "mistakePenalty": 5
+  }
+}

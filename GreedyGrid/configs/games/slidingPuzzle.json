@@ -1,0 +1,17 @@
+{
+  "gameName": "Sliding Puzzle",
+  "grid": {
+    "rows": 4,
+    "columns": 4
+  },
+  "rules": {
+    "movableTiles": "adjacent",
+    "emptyTile": true
+  },
+  "winCondition": {
+    "type": "orderedTiles"
+  },
+  "scoring": {
+    "moveLimit": 100
+  }
+}
