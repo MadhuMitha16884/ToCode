@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 import gamesConfig from "../configs"
+import Leaderboard from "./Leaderboard"
 
 export default function Dashboard({ setGame, setDifficulty }) {
 
@@ -117,6 +118,10 @@ export default function Dashboard({ setGame, setDifficulty }) {
           )
         })}
 
+      </div>
+
+      <div style={{ marginTop: "4rem", width: "100%", maxWidth: "1000px" }}>
+        <Leaderboard title="Global Leaderboard" />
       </div>
     </div>
   )
