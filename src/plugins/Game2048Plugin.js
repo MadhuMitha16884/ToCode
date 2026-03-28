@@ -146,7 +146,15 @@ const Game2048Plugin = {
     },
 
     getScore(state, timeTaken) {
-        return state.score;
+        let maxTile = 0;
+        for (let r = 0; r < state.size; r++) {
+            for (let c = 0; c < state.size; c++) {
+                if (state.board[r][c] && state.board[r][c] > maxTile) {
+                    maxTile = state.board[r][c];
+                }
+            }
+        }
+        return maxTile;
     }
 };
 
