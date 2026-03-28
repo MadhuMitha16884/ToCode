@@ -245,7 +245,35 @@ export default function GameContainer({ game, difficulty, setGame }) {
                     textAlign: "center", color: "white", minWidth: "350px"
                 }}>
                     <h2 style={{ fontSize: "2.5rem", color: "#f44336", marginTop: 0 }}>💀 Game Over!</h2>
-                    <p style={{ color: "#aaa", fontSize: "1.1rem", marginBottom: "30px" }}>No more moves available.</p>
+                    {game === "2048" ? (
+                      <div style={{ fontSize: "1.2rem", margin: "20px 0", color: "#ccc" }}>
+                        <p>Time Taken: <strong>{timer}s</strong></p>
+                        <p>Highest Tile: <strong>{plugin.getScore(state, timer)}</strong></p>
+                      </div>
+                    ) : (
+                      <p style={{ color: "#aaa", fontSize: "1.1rem", marginBottom: "30px" }}>No more moves available.</p>
+                    )}
+                    
+                    {game === "2048" && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "15px", marginTop: "10px", marginBottom: "20px" }}>
+                        <input
+                          placeholder="Enter your name"
+                          value={player}
+                          onChange={(e) => setPlayer(e.target.value)}
+                          style={{ padding: "12px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.2)", outline: "none", background: "rgba(0,0,0,0.5)", color: "white", fontSize: "1.1rem" }}
+                        />
+                        <button 
+                          onClick={() => {
+                             submitScore(game, difficulty, player || "Anonymous", plugin.getScore(state, timer))
+                             setPlayer("")
+                             handleRestart()
+                          }} 
+                          style={{ padding: "12px 24px", background: "linear-gradient(135deg, #4caf50, #81c784)", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "bold", fontSize: "1.1rem", boxShadow: "0 4px 10px rgba(76,175,80,0.3)" }}>
+                          Submit Score & Restart
+                        </button>
+                      </div>
+                    )}
+
                     <button 
                         onClick={handleRestart}
                         style={{ padding: "12px 30px", background: "linear-gradient(135deg, #f44336, #e57373)", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "bold", fontSize: "1.1rem", width: "100%" }}
