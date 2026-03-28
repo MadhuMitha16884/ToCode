@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getScores } from "../engine/LeaderboardService"
 import { motion, AnimatePresence } from "framer-motion"
 
-export default function Leaderboard({ game, difficulty }) {
+export default function Leaderboard({ game, difficulty, title="Leaderboard" }) {
   const [scores, setScores] = useState([])
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Leaderboard({ game, difficulty }) {
 
   return (
     <div className="leaderboard" style={{ background: "rgba(0,0,0,0.2)", borderRadius: "12px", padding: "20px", color: "white" }}>
-      <h3 style={{ marginTop: 0, borderBottom: "1px solid rgba(255,255,255,0.2)", paddingBottom: "10px" }}>Leaderboard</h3>
+      <h3 style={{ marginTop: 0, borderBottom: "1px solid rgba(255,255,255,0.2)", paddingBottom: "10px" }}>{title}</h3>
       {scores.length === 0 ? (
         <p style={{ color: "#aaa" }}>No scores yet. Be the first!</p>
       ) : (
@@ -33,7 +33,7 @@ export default function Leaderboard({ game, difficulty }) {
           <AnimatePresence>
             {scores.map((s, i) => (
               <motion.li 
-                key={`${s.player}-${s.date}`}
+                key={`${s.player}-${s.date}-${i}`}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
@@ -52,10 +52,15 @@ export default function Leaderboard({ game, difficulty }) {
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                   <span style={{ fontWeight: "bold", width: "20px" }}>#{i+1}</span>
                   <span>{s.player}</span>
+                  {!game && (
+                    <span style={{ fontSize: "0.75em", background: "rgba(255,255,255,0.1)", padding: "2px 6px", borderRadius: "4px", color: "#aaa" }}>
+                      {s.game} ({s.difficulty})
+                    </span>
+                  )}
                 </div>
                 <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
                   <span style={{ fontWeight: "bold", minWidth: "60px", textAlign: "right" }}>
-                    {game === "2048" ? `⭐ ${s.score}` : `🔄 ${s.score}`}
+                    {s.game === "2048" ? `⭐ ${s.score}` : `🔄 ${s.score}`}
                   </span>
                   <span style={{ color: "#ccc", fontSize: "0.9em", minWidth: "50px", textAlign: "right" }}>⏱ {s.time}s</span>
                 </div>
